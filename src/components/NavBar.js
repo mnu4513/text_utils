@@ -2,10 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
 
-function NavBar({title}) {
+function NavBar({title, mode, toggleMode}) {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary"  data-bs-theme={mode}>
       <Container>
         <Navbar.Brand href="#home">{title}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -24,9 +25,28 @@ function NavBar({title}) {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
+
+            
           </Nav>
+
+
+          <Form>
+      <Form.Check // prettier-ignore
+      
+        type="switch"
+        className={`text-${mode === "dark" ? "light" : "dark"}`}
+        id="custom-switch"
+        label="Swith Mode"
+        onClick={() => toggleMode()}
+      />
+    </Form>
+    
         </Navbar.Collapse>
+
+        
       </Container>
+
+     
     </Navbar>
   );
 }

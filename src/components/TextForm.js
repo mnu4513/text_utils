@@ -1,24 +1,32 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 
-function TextForm({ heading }) {
+function TextForm({ heading, handleAlert }) {
     const [text, setText] = useState("");
-    const [myStyle, setMyStyle] = useState({
-        color: "white",
-        backgroundColor: "white",
-        styleName: "light",
-    });
+
 
     const convertUppercase = (e) => {
         setText(text.toUpperCase());
+        handleAlert({
+            variant: "primary",
+            message: "Converted to upper case"
+        });
     };
 
     const convertLowercase = (e) => {
         setText(text.toLowerCase());
+        handleAlert({
+            variant: "primary",
+            message: "Converted to lower case"
+        });
     };
 
     const clearText = (e) => {
         setText("");
+        handleAlert({
+            variant: "danger",
+            message: "Text cleared"
+        });
     };
 
     const handleOnChange = (e) => {
@@ -29,11 +37,19 @@ function TextForm({ heading }) {
         const text = document.getElementById("exampleForm.ControlTextarea1");
         text.select();
         navigator.clipboard?.writeText(text.value);
+        handleAlert({
+            variant: "success",
+            message: "Text copied to clipboard"
+        });
     };
 
     const removeExtraSpaces = () => {
         const newText = text.split(/[ ]+/);
         setText(newText.join(" "));
+        handleAlert({
+            variant: "warning",
+            message: "Extra spaces removed"
+        });
     };
 
     return (
@@ -74,7 +90,7 @@ function TextForm({ heading }) {
                 </button>
 
                 <button
-                    className="btn btn-primary mx-3"
+                    className="btn btn-primary mx-3 my-3"
                     onClick={(e) => removeExtraSpaces(e)}
                 >
                     Remove extra spaces
